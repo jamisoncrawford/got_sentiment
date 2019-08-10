@@ -189,13 +189,10 @@ for (i in 3:44888){
                !grepl("[a-z]{1}$|,$", all$cap1[i - 1])){    # Previous line ends
             all$cap2[i] <- all$cap1[i + 1]
             all$cap3[i] <- all$cap1[i + 2]                  # Move lines to same row 
-            all$cap1[i + 1] <- NA
-            all$cap1[i + 2] <- NA                           # Remove moved captions
+            all$cap1[c(i + 1, i + 2)] <- NA                 # Remove moved captions
             all$ln_end[i] <- all$ln_beg[i + 2]              # Update end "line"
-            all$ln_beg[i + 1] <- NA
-            all$ln_beg[i + 2] <- NA
-            all$ln_end[i + 1] <- NA
-            all$ln_end[i + 2] <- NA                         # Remove obs. "line" vals
+            all$ln_beg[c(i + 1, i + 2)] <- NA
+            all$ln_end[c(i + 1, i + 2)] <- NA               # Remove obs. "line" vals
     }
 }
 
