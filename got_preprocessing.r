@@ -24,13 +24,11 @@ setwd(dir); rm(dir)
 
 if(!require(readr)){install.packages("readr")}
 if(!require(dplyr)){install.packages("dplyr")}
-if(!require(koRpus)){install.packages("koRpus")}
 if(!require(stringr)){install.packages("stringr")}
 if(!require(jsonlite)){install.packages("jsonlite")}
 
 library(readr)
 library(dplyr)
-library(koRpus)
 library(stringr)
 library(jsonlite)
 
