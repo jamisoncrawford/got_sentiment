@@ -148,11 +148,11 @@ all <- all %>%
            cap = str_replace_all(cap, ">", ""))                     # Rm stray ">"
 
 for (i in seq_along(all$cap)){
-    if (str_detect(all$cap[i], "^# ") & 
-        !str_detect(all$cap[i], "\\.\\.\\.$|!$")){
+    if (grepl("^# ", all$cap[i]) & 
+        !grepl("\\.\\.\\.$|!$", all$cap[i])){
             all$cap[i] <- paste0(all$cap[i], "...");
             all$cap[i] <- str_replace_all(all$cap[i], "^# | #", "")
-    } else if (str_detect(all$cap[i], "^# ")){
+    } else if (grepl("^# ", all$cap[i])){
         all$cap[i] <- str_replace_all(all$cap[i], "^# ", "")
     }
 }                                                                   # Format music with "#"
@@ -162,56 +162,11 @@ all$cap[ind] <- gsub('\"', "'", all$cap[ind], fixed = TRUE)         # Replace " 
 
 rm(i, ind, spkr)
 
-all <- select(all, name:episode, music, line:cap)                   # Rearrange variables
-
-
-
-#----------# COMBINE SENTENCES
-
-all$ln_beg <- all$line               # Initialize variables: beg & end "line"
-all$ln_end <- all$line
-
-all$cap1 <- all$cap                  # Initialize variables: Connected captions
-all$cap2 <- NA
-all$cap3 <- NA
-
-for (i in 3:44888){
-    if (grepl("[a-z]{1}$|,$", all$cap1[i]) &                # Line doesn't end
-        !grepl("[a-z]{1}$|,$", all$cap1[i + 1]) &           # Next line ends
-        !grepl("[a-z]{1}$|,$", all$cap1[i - 1])){           # Previous line ends
-            all$cap2[i] <- all$cap1[i + 1]
-            all$cap1[i + 1] <- NA
-            all$ln_end[i] <- all$ln_beg[i + 1]
-            all$ln_beg[i + 1] <- NA
-            all$ln_end[i + 1] <- NA
-    } else if (grepl("[a-z]{1}$|,$", all$cap1[i]) &         # Line doesn't end
-               grepl("[a-z]{1}$|,$", all$cap1[i + 1]) &     # Next line doesn't end
-               !grepl("[a-z]{1}$|,$", all$cap1[i + 2]) &    # Next line ends
-               !grepl("[a-z]{1}$|,$", all$cap1[i - 1])){    # Previous line ends
-            all$cap2[i] <- all$cap1[i + 1]
-            all$cap3[i] <- all$cap1[i + 2]                  # Move lines to same row 
-            all$cap1[c(i + 1, i + 2)] <- NA                 # Remove moved captions
-            all$ln_end[i] <- all$ln_beg[i + 2]              # Update end "line"
-            all$ln_beg[c(i + 1, i + 2)] <- NA
-            all$ln_end[c(i + 1, i + 2)] <- NA               # Remove obs. "line" vals
-    }
-}
-
-all[which(is.na(all$cap1)), "cap1"] <- ""
-all[which(is.na(all$cap2)), "cap2"] <- ""
-all[which(is.na(all$cap3)), "cap3"] <- ""                   # Converts NAs to ""
-
 all <- all %>%
-    mutate(sent = paste(cap1, cap2, cap3, sep = " "),       # Paste complete sentences
-           sent = str_trim(sent, "both"),                   # Trim whitespace
-           sent = str_replace(sent, " {2,}", " ")) %>%      # Remove 2+ spaces
-    select(-cap1:-cap3)                                     # Rm cap1-3 vars
+    mutate(cap = str_trim(cap, "both")) %>%                         # Trim whitespace
+    select(all, name:episode, music, line:cap)                      # Rearrange variables
 
-all[which(all$sent == ""), "sent"] <- NA                    # Empty strings to NA
-
-all <- all[complete.cases(all), ]                           # Remove partial "cap" rows
-
-rm(i)
+all <- all[which(complete.cases(all)), ]                            # Remove rows w/ NAs
 
 
 
@@ -219,26 +174,17 @@ rm(i)
 
 all <- all %>% 
     mutate(name = str_replace_all(name, "  ", ", "),
-           name = str_replace_all(name, " s ", "'s "),
+           name = str_replace_all(name, " s ", "'s "),              # Commas, apostrophes
            name = str_replace_all(name, " The ", " the "),
            name = str_replace_all(name, " And ", " and "),
            name = str_replace_all(name, " Of ", " of "),
            name = str_replace_all(name, " A ", " a "),
            name = str_replace_all(name, " To ", " to "),
            name = str_replace_all(name, " On ", " on "),
-           name = str_replace_all(name, " By ", " by "))
-
-
-
-#----------# PASTE SENTENCES & GROUP BY SEASON, EPISODE
-
-grp <- all %>%
-    group_by(season, episode, name) %>%
-    summarize(dialogue = paste0(sent, collapse = " "))
+           name = str_replace_all(name, " By ", " by "))            # Lowercase neutrals
 
 
 
 #----------# WRITE TO TEXT FILES (.CSV)
 
-write_csv(x = all, "got_all_lines.csv")
-write_csv(x = grp, "got_episodes_merged.csv")
+write_csv(x = all, "got_all_lines.csv")                             # Write to .CSV
