@@ -8,7 +8,9 @@
 
 
 
-#----------# SET WORKING DIRECTORY
+#----------# CLEAR OBJECTS & SET WORKING DIRECTORY
+
+rm(list = ls())
 
 dir <-paste0("~/Coursera/Data Science Specializat", 
              "ion (Johns Hopkins)/Course 9 - Deve",
@@ -148,9 +150,10 @@ all <- all %>%
            cap = str_replace_all(cap, ">", ""))                     # Rm stray ">"
 
 for (i in seq_along(all$cap)){
-    if (str_detect(all$cap[i], "^# ") & !str_detect(all$cap[i], "\\.\\.\\.$|!$")){
-        all$cap[i] <- paste0(all$cap[i], "...");
-        all$cap[i] <- str_replace_all(all$cap[i], "^# | #", "")
+    if (str_detect(all$cap[i], "^# ") & 
+        !str_detect(all$cap[i], "\\.\\.\\.$|!$")){
+            all$cap[i] <- paste0(all$cap[i], "...");
+            all$cap[i] <- str_replace_all(all$cap[i], "^# | #", "")
     } else if (str_detect(all$cap[i], "^# ")){
         all$cap[i] <- str_replace_all(all$cap[i], "^# ", "")
     }
@@ -170,7 +173,7 @@ all <- select(all, name:episode, music, line:cap)                   # Rearrange 
 all$ln_beg <- all$line               # Initialize variables: beg & end "line"
 all$ln_end <- all$line
 
-all$cap1 <- all$cap                 # Initialize variables: Connected captions
+all$cap1 <- all$cap                  # Initialize variables: Connected captions
 all$cap2 <- NA
 all$cap3 <- NA
 
@@ -211,6 +214,21 @@ all[which(all$sent == ""), "sent"] <- NA                    # Empty strings to N
 all <- all[complete.cases(all), ]                           # Remove partial "cap" rows
 
 rm(i)
+
+
+
+#----------# FORMAT EPISODE TITLES TO TITLECASE
+
+all <- all %>% 
+    mutate(name = str_replace_all(name, "  ", ", "),
+           name = str_replace_all(name, " s ", "'s "),
+           name = str_replace_all(name, " The ", " the "),
+           name = str_replace_all(name, " And ", " and "),
+           name = str_replace_all(name, " Of ", " of "),
+           name = str_replace_all(name, " A ", " a "),
+           name = str_replace_all(name, " To ", " to "),
+           name = str_replace_all(name, " On ", " on "),
+           name = str_replace_all(name, " By ", " by "))
 
 
 
