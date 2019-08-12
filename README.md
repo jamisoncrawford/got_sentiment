@@ -6,7 +6,7 @@ This work organizes and analyzes dialogue across seven seasons of the hit HBO se
 
 ## Methods
 
-For each season and sentence of dialogue, this analysis will use the [Flesch–Kincaid readability test](https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests) to determine appropriate grade level and ease of reading - an appropriate proxy as each line of dialogue was first written, either by Martin himself, or adapted by showrunners [David Benioff](https://en.wikipedia.org/wiki/David_Benioff) and [D. B. Weiss](https://en.wikipedia.org/wiki/D._B._Weiss). Portions of dialogue and events directly adapted from the book series are distinguished from content created by Benioff and Weiss using content outlines from Martin's unfinished work, which may be seen in the [adaptation schedule](https://en.wikipedia.org/wiki/Game_of_Thrones#Adaptation_schedule_and_episodes).
+This approach uses a bag-of-words model for both frequency counts and sentiment analysis for each word in the series' dialogue. The [AFINN](https://github.com/fnielsen/afinn) and [NRC](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm) sentiment lexicons to evaluate each words with positive, negative, or more specific emotional connotations.
 
 ## Data Sources
 
@@ -17,7 +17,5 @@ Notably, the raw data are not provided in the correct order, but are still organ
 ## Works Cited
 
 **Finn, Arup (2015).** "AFINN Sentiment Lexicon". *GitHub*. Retrieved on 11 August 2019 from [here](https://github.com/fnielsen/afinn). 
-
 **Saif, Mohammad (2013).** "NRC Word-Emotion Association Lexicon". Retrieved on 11 August 2019 from [here](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm).
-
 **Saini, Gunnvant (2018).** "Game of Thrones Subtitles". *Kaggle*. Retrieved on 9 August 2019 from [here](https://www.kaggle.com/gunnvant/game-of-thrones-srt).
