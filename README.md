@@ -12,7 +12,7 @@ This approach uses a bag-of-words model for both frequency counts and sentiment 
 
 Data were retrieved from Kaggle's [Game of Thrones Subtitles](https://www.kaggle.com/gunnvant/game-of-thrones-srt) dataset and are available in JSON format. Documentation describes the dataset as "every line from every season" (Saini, Gunnvant 2018).
 
-Notably, the raw data are not provided in the correct order, but are still organized by episode and season (ibid.).
+Notably, the raw data are not provided are ordered naively but are still organized by episode and season (ibid.).
 
 ## Works Cited
 
