@@ -17,5 +17,7 @@ Notably, the raw data are not provided in the correct order, but are still organ
 ## Works Cited
 
 **Finn, Arup (2015).** "AFINN Sentiment Lexicon". *GitHub*. Retrieved on 11 August 2019 from [here](https://github.com/fnielsen/afinn). 
+
 **Saif, Mohammad (2013).** "NRC Word-Emotion Association Lexicon". Retrieved on 11 August 2019 from [here](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm).
+
 **Saini, Gunnvant (2018).** "Game of Thrones Subtitles". *Kaggle*. Retrieved on 9 August 2019 from [here](https://www.kaggle.com/gunnvant/game-of-thrones-srt).
