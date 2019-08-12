@@ -13,3 +13,11 @@ For each season and sentence of dialogue, this analysis will use the [Flesch–K
 Data were retrieved from Kaggle's [Game of Thrones Subtitles](https://www.kaggle.com/gunnvant/game-of-thrones-srt) dataset and are available in JSON format. Documentation describes the dataset as "every line from every season" (Saini, Gunnvant 2018).
 
 Notably, the raw data are not provided in the correct order, but are still organized by episode and season (ibid.).
+
+## Works Cited
+
+**Finn, Arup (2015).** "AFINN Sentiment Lexicon". *GitHub*. Retrieved on 11 August 2019 from [here](https://github.com/fnielsen/afinn). 
+
+**Saif, Mohammad (2013).** "NRC Word-Emotion Association Lexicon". Retrieved on 11 August 2019 from [here](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm).
+
+**Saini, Gunnvant (2018).** "Game of Thrones Subtitles". *Kaggle*. Retrieved on 9 August 2019 from [here](https://www.kaggle.com/gunnvant/game-of-thrones-srt).
