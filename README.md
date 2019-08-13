@@ -1,4 +1,4 @@
-# Game of Thrones Dialogue Analysis
+# Game of Thrones Sentiment Analysis
 
 ## Overview
 
